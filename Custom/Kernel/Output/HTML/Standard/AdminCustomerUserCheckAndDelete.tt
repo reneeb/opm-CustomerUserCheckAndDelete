@@ -1,0 +1,80 @@
+# --
+# Copyright (C) 2018 Perl-Services.de, http://perl-services.de
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+<div class="MainBox ARIARoleMain LayoutFixedSidebar SidebarFirst">
+    <h1>[% Translate("Customers - check and delete") | html %]</h1>
+    <div class="SidebarColumn">
+        <div class="WidgetSimple">
+            <div class="Header">
+                <h2>[% Translate("Actions") | html %]</h2>
+            </div>
+            <div class="Content">
+                <form id="filter-customer-users" action="[% Env("Baselink") %]" method="post">
+                <input type="hidden" name="Action" value="[% Env("Action") | html %]">
+                <ul class="ActionList">
+                    <li>
+                        [% Data.CheckSelect %]
+                    </li>
+                    <li>
+                        <button type="submit" class="CallForAction"><span>[% Translate("Check Customer Users") | html %]</span></button>
+                    </li>
+                </ul>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="ContentColumn">
+        <div class="WidgetSimple">
+            <div class="Header">
+                <h2>[% Translate("List") | html %]</h2>
+            </div>
+            <div class="Content">
+                <form action="[% Env("Baselink") %]" method="post">
+                <input type="hidden" name="Action" value="[% Env("Action") | html %]">
+                <input type="hidden" name="Subaction" value="Delete">
+                <table class="DataTable" id="InvoiceStates">
+                    <thead>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <th>[% Translate("Name") | html %]</th>
+                            <th>[% Translate("Comment") | html %]</th>
+                            <th>[% Translate("Valid") | html %]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+[% RenderBlockStart("NoStatesFound") %]
+                        <tr>
+                            <td colspan="4">[% Translate("No matches found.") | html %]</td>
+                        </tr>
+[% RenderBlockEnd("NoStatesFound") %]
+[% RenderBlockStart("UserRow") %]
+                        <tr>
+                            <td>
+                                <input type="checkbox" value="[% Data.UserLogin | html %]" name="CustomerID" />
+                            </td>
+                            <td>
+                                [% Data.UserLogin | html %]
+                            </td>
+                            <td>
+                                [% Data.UserComment | html %]
+                            </td>
+                            <td>
+                                [% Data.Valid | html %]
+                            </td>
+                        </tr>
+[% RenderBlockEnd("UserRow") %]
+                    </tbody>
+                </table>
+                <button type="submit" class="CallForAction"><span>[% Translate("Delete Customer Users") | html %]</span></button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="Clear"></div>
+</div>

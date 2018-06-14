@@ -1,0 +1,38 @@
+=head1 CustomerUserCheckAndDelete
+
+This addon should help you to check if you still need your customer users. In this version, it supports only
+the OTRS DB as customer user backend.
+
+After installation, the admin gets a new item in the customer section: "Customer User Check". In that dialog
+a list of checks can be selected and all customer users that satisfy all selected checks, will be listed on
+the right.
+
+You can now select the customer users and delete them from the database.
+
+=head2 Extensions
+
+You can extend this addon on your own: You can create new checks and you can create your own deletion module
+
+=head3 Checks
+
+The check module needs two methods: C<new> and C<Run>. The C<Run> method gets a list of customer ids that passed
+the checks before and it has to return those that passed this check.
+
+=head3 Deletion module
+
+The deletion module is responsible for deleting the customer users. By default this module supports only
+the OTRS DB as a customer user backend.
+
+If you've configured an ActiveDirectory or a LDAP backend, the user configured in OTRS usually doesn't have
+the permissions to delete any LDAP entries. That's why this isn't supported. But you could write your
+own Deletion module to delete the users from your LDAP.
+
+Or when you have established any other deletion process, you could implement it for this addon.
+
+=head3 Examples
+
+You can use the code of this addon as an example: L<https://github.com/reneeb/otrs-CustomerUserCheckAndDelete>.
+
+=head2 Support
+
+If you need any help with this addon, please contact us at otrs@perl-services.de

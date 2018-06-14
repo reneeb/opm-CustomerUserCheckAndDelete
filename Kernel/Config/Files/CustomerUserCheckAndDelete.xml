@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<otrs_config version="1.0" init="Config">
+    <ConfigItem Name="Frontend::Module###AdminCustomerUserCheckAndDelete" Required="0" Valid="1">
+        <Description Translatable="1">Frontend module registration for the invoice states interface.</Description>
+        <Group>CustomerUserCheckAndDelete</Group>
+        <SubGroup>Frontend::Admin::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <Group>admin</Group>
+                <Description>Check and delete customer users.</Description>
+                <Title>Customer Users Check</Title>
+                <NavBarName>Admin</NavBarName>
+                <NavBarModule>
+                    <Module>Kernel::Output::HTML::NavBarModuleAdmin</Module>
+                    <Name Translatable="1">Customer Users Check</Name>
+                    <Description Translatable="1">Check and delete customer users.</Description>
+                    <Block>Customer</Block>
+                    <Prio>900</Prio>
+                </NavBarModule>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="CustomerUserCheckAndDelete###Debug" Required="0" Valid="1">
+        <Description Translatable="1">Dis-/Enable debugging feature.</Description>
+        <Group>CustomerUserCheckAndDelete</Group>
+        <SubGroup>Core</SubGroup>
+        <Setting>
+            <Option SelectedID="0">
+                <Item Key="0" Translatable="1">No</Item>
+                <Item Key="1" Translatable="1">Yes</Item>
+            </Option>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="CustomerUserCheckAndDelete::DeleteModule" Required="1" Valid="1">
+        <Description Translatable="1">Module for the delete action.</Description>
+        <Group>CustomerUserCheckAndDelete</Group>
+        <SubGroup>Core</SubGroup>
+        <Setting>
+            <String Regex="">Kernel::System::PerlServices::CustomerUserDelete</String>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="CustomerUserCheckAndDelete::Check###001-NoTickets" Required="0" Valid="1">
+        <Description Translatable="1">Check if customer user has no tickets.</Description>
+        <Group>CustomerUserCheckAndDelete</Group>
+        <SubGroup>Checks</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::System::PerlServices::CustomerUserChecks::NoTicket</Item>
+                <Item Key="Debug">0</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+</otrs_config>

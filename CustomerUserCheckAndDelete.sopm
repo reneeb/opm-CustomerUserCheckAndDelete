@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<otrs_package version="1.0">
+    <!-- GENERATED WITH OTRS::OPM::Maker::Command::sopm (1.4) -->
+    <Name>CustomerUserCheckAndDelete</Name>
+    <Version>4.0.1</Version>
+    <Framework>4.0.x</Framework>
+    <Vendor>Perl-Services.de</Vendor>
+    <URL>http://www.perl-services.de</URL>
+    <Description Lang="de">Erlaubt es, Prüfungen auf Kundenbenutzer anzuwenden und diese ggf. zu löschen</Description>
+    <Description Lang="en">Apply some checks on customers and enable customer user deletion</Description>
+    <License>GNU AFFERO GENERAL PUBLIC LICENSE Version 3, November 2007</License>
+    <Filelist>
+        <File Permission="644" Location="Custom/Kernel/Modules/AdminCustomerUserCheckAndDelete.pm" />
+        <File Permission="644" Location="Custom/Kernel/Output/HTML/Standard/AdminCustomerUserCheckAndDelete.tt" />
+        <File Permission="644" Location="Custom/Kernel/System/PerlServices/CustomerUserChecks/NoTicket.pm" />
+        <File Permission="644" Location="Custom/Kernel/System/PerlServices/CustomerUserDelete.pm" />
+        <File Permission="644" Location="Kernel/Config/Files/CustomerUserCheckAndDelete.xml" />
+        <File Permission="644" Location="doc/CustomerUserCheckAndDelete.json" />
+        <File Permission="644" Location="doc/en/CustomerUserCheckAndDelete.pod" />
+    </Filelist>
+</otrs_package>
