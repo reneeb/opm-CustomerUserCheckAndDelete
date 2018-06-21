@@ -95,7 +95,7 @@ sub _CustomerUsers {
         Size        => 5,
     );
 
-    my %UserList = $CustomerUserObject->CustomerUserList();
+    my %UserList = $CustomerUserObject->CustomerSearch( Search => '*' );
 
     my @UserIDs = keys %UserList;
 
