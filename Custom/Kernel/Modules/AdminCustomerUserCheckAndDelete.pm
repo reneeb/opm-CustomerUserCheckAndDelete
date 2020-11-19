@@ -95,7 +95,10 @@ sub _CustomerUsers {
         Size        => 5,
     );
 
-    my %UserList = $CustomerUserObject->CustomerSearch( Search => '*' );
+    my %UserList = $CustomerUserObject->CustomerSearch(
+        Search => '*',
+        Valid  => 0,
+    );
 
     my @UserIDs = keys %UserList;
 
@@ -112,6 +115,12 @@ sub _CustomerUsers {
 
         @UserIDs = $Object->Run(
             CustomerID => \@UserIDs,
+        );
+    }
+
+    if ( !@UserIDs ) {
+        $LayoutObject->Block(
+            Name => 'NoUsersFound',
         );
     }
 
