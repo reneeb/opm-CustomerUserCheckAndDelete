@@ -2,7 +2,7 @@
 <otrs_package version="1.0">
     <!-- GENERATED WITH OTRS::OPM::Maker::Command::sopm (1.4) -->
     <Name>CustomerUserCheckAndDelete</Name>
-    <Version>6.0.1</Version>
+    <Version>6.0.2</Version>
     <Framework>6.0.x</Framework>
     <Vendor>Perl-Services.de</Vendor>
     <URL>http://www.perl-services.de</URL>
@@ -12,9 +12,11 @@
     <Filelist>
         <File Permission="644" Location="Custom/Kernel/Modules/AdminCustomerUserCheckAndDelete.pm" />
         <File Permission="644" Location="Custom/Kernel/Output/HTML/Templates/Standard/AdminCustomerUserCheckAndDelete.tt" />
+        <File Permission="644" Location="Custom/Kernel/System/PerlServices/CustomerUserChecks/Invalid.pm" />
         <File Permission="644" Location="Custom/Kernel/System/PerlServices/CustomerUserChecks/NoTicket.pm" />
         <File Permission="644" Location="Custom/Kernel/System/PerlServices/CustomerUserDelete.pm" />
         <File Permission="644" Location="Kernel/Config/Files/XML/CustomerUserCheckAndDelete.xml" />
+        <File Permission="644" Location="Kernel/Language/de_CustomerUserCheckAndDelete.pm" />
         <File Permission="644" Location="doc/CustomerUserCheckAndDelete.json" />
         <File Permission="644" Location="doc/en/CustomerUserCheckAndDelete.pod" />
     </Filelist>
