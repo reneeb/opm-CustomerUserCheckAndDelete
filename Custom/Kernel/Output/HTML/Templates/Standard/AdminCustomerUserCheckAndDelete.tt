@@ -7,7 +7,7 @@
 # --
 
 <div class="MainBox ARIARoleMain LayoutFixedSidebar SidebarFirst">
-    <h1>[% Translate("Customers - check and delete") | html %]</h1>
+    <h1>[% Translate("Customer Users - check and delete") | html %]</h1>
     <div class="SidebarColumn">
         <div class="WidgetSimple">
             <div class="Header">
@@ -38,7 +38,7 @@
                 <form action="[% Env("Baselink") %]" method="post">
                 <input type="hidden" name="Action" value="[% Env("Action") | html %]">
                 <input type="hidden" name="Subaction" value="Delete">
-                <table class="DataTable" id="InvoiceStates">
+                <table class="DataTable" id="CustomerUsers">
                     <thead>
                         <tr>
                             <th>&nbsp;</th>
@@ -48,18 +48,19 @@
                         </tr>
                     </thead>
                     <tbody>
-[% RenderBlockStart("NoStatesFound") %]
+[% RenderBlockStart("NoUsersFound") %]
                         <tr>
                             <td colspan="4">[% Translate("No matches found.") | html %]</td>
                         </tr>
-[% RenderBlockEnd("NoStatesFound") %]
+[% RenderBlockEnd("NoUsersFound") %]
 [% RenderBlockStart("UserRow") %]
                         <tr>
                             <td>
                                 <input type="checkbox" value="[% Data.UserLogin | html %]" name="CustomerID" />
                             </td>
                             <td>
-                                [% Data.UserLogin | html %]
+                                [% Data.UserLogin | html %] &rarr;
+                                [% Data.UserFullname | html %]
                             </td>
                             <td>
                                 [% Data.UserComment | html %]
