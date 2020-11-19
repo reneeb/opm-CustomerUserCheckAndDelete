@@ -15,6 +15,7 @@ our @ObjectDependencies = qw(
     Kernel::Config
     Kernel::System::Log
     Kernel::System::DB
+    Kernel::System::Cache
 );
 
 sub new {
@@ -30,8 +31,9 @@ sub new {
 sub Run {
     my ( $Self, %Param ) = @_;
 
-    my $LogObject = $Kernel::OM->Get('Kernel::System::Log');
-    my $DBObject  = $Kernel::OM->Get('Kernel::System::DB');
+    my $LogObject   = $Kernel::OM->Get('Kernel::System::Log');
+    my $DBObject    = $Kernel::OM->Get('Kernel::System::DB');
+    my $CacheObject = $Kernel::OM->Get('Kernel::System::Cache');
 
     if ( !ref $Param{CustomerID} ) {
         $LogObject->Log(
@@ -57,64 +59,11 @@ sub Run {
         Bind => [ map { \$_ }@CustomerUserIDs ],
     );
 
-    $Self->{CacheType}   = 'CustomerUser';
-    $Self->{CacheObject} = $Kernel::OM->Get('Kernel::System::Cache');
+    my $CacheType = 'CustomerUser';
 
-    for my $Login ( @CustomerUserIDs ) {
-        $Self->_CustomerUserCacheClear(
-            UserLogin => $Login,
-        );
-    }
-
-    return 1;
-}
-
-sub _CustomerUserCacheClear {
-    my ( $Self, %Param ) = @_;
-
-    return if !$Self->{CacheObject};
-
-    if ( !$Param{UserLogin} ) {
-        $Kernel::OM->Get('Kernel::System::Log')->Log(
-            Priority => 'error',
-            Message  => 'Need UserLogin!',
-        );
-        return;
-    }
-
-    $Self->{CacheObject}->Delete(
-        Type => $Self->{CacheType},
-        Key  => "CustomerUserDataGet::$Param{UserLogin}",
+    $CacheObject->CleanUp(
+        Type => $CacheType,
     );
-    $Self->{CacheObject}->Delete(
-        Type => $Self->{CacheType},
-        Key  => "CustomerName::$Param{UserLogin}",
-    );
-    $Self->{CacheObject}->Delete(
-        Type => $Self->{CacheType},
-        Key  => "CustomerIDs::$Param{UserLogin}",
-    );
-
-    # delete all search cache entries
-    $Self->{CacheObject}->CleanUp(
-        Type => $Self->{CacheType} . '_CustomerIDList',
-    );
-    $Self->{CacheObject}->CleanUp(
-        Type => $Self->{CacheType} . '_CustomerSearch',
-    );
-
-    $Self->{CacheObject}->CleanUp(
-        Type => 'CustomerGroup',
-    );
-
-    for my $Function (qw(CustomerUserList)) {
-        for my $Valid ( 0 .. 1 ) {
-            $Self->{CacheObject}->Delete(
-                Type => $Self->{CacheType},
-                Key  => "${Function}::${Valid}",
-            );
-        }
-    }
 
     return 1;
 }
