@@ -59,11 +59,36 @@ sub Run {
         Bind => [ map { \$_ }@CustomerUserIDs ],
     );
 
-    my $CacheType = 'CustomerUser';
-
-    $CacheObject->CleanUp(
-        Type => $CacheType,
+    my @Prefixes = qw(
+        CustomerUserDataGet
+        CustomerName
+        CustomerIDs
     );
+
+    for my $CustomerUserID ( @CustomerUserIDs ) {
+        for my $Prefix ( @Prefixes ) {
+            my $Key = join '::', $Prefix, $CustomerUserID;
+
+            $CacheObject->Delete(
+                Type => 'CustomerUser',
+                Key  => $Key,
+            );
+        }
+    }
+
+    my @CacheTypes = qw/
+        CustomerUser
+        CustomerUser_CustomerSearch
+        CustomerUser_CustomerSearchDetail
+        CustomerUser_CustomerSearchDetailDynamicFields
+        CustomerUser_CustomerIDList
+    /;
+
+    for my $CacheType ( @CacheTypes ) {
+        $CacheObject->CleanUp(
+            Type => $CacheType,
+        );
+    }
 
     return 1;
 }
