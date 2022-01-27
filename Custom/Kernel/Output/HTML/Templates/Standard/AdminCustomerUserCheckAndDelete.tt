@@ -41,7 +41,10 @@
                 <table class="DataTable" id="CustomerUsers">
                     <thead>
                         <tr>
-                            <th>&nbsp;</th>
+                            <th>
+                                <input type="checkbox" id="AllCustomerIDs">
+                                [% Translate("Check/Uncheck all") | html %]
+                            </th>
                             <th>[% Translate("Name") | html %]</th>
                             <th>[% Translate("Comment") | html %]</th>
                             <th>[% Translate("Valid") | html %]</th>
@@ -79,3 +82,18 @@
     </div>
     <div class="Clear"></div>
 </div>
+
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+    Core.App.Ready( function() {
+        $('#AllCustomerIDs').on('change', function() {
+            if ( $(this).is(':checked') ) {
+                $('input[name="CustomerID"]').prop('checked', true);
+            }
+            else {
+                $('input[name="CustomerID"]').prop('checked', false);
+            }
+        });
+    });
+//]]></script>
+[% END %]

@@ -1,5 +1,5 @@
 # --
-# Copyright (C) 2020 Perl-Services, http://www.perl-services.de
+# Copyright (C) 2020 - 2022 Perl-Services, https://www.perl-services.de
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -25,6 +25,7 @@ sub Data {
     $Lang->{"Delete Customer Users"}             = "Kundenbenutzer löschen";
     $Lang->{"Customer Users Check"}              = "Kundenbenutzerprüfung";
     $Lang->{"Check and delete customer users."}  = "Kundenbenutzer prüfen und löschen";
+    $Lang->{'Check/Uncheck all'}                 = 'Alle aus-/abwählen';
 
     return 1;
 }
