@@ -91,4 +91,11 @@
             </Hash>
         </Value>
     </Setting>
+    <Setting Name="CustomerUserCheckAndDelete::Limit" Required="1" Valid="1">
+        <Description Translatable="1">Module for the delete action.</Description>
+        <Navigation>Core::CustomerUserCheckAndDelete</Navigation>
+        <Value>
+            <Item ValueType="String" ValueRegex="^\d+$">1000</Item>
+        </Value>
+    </Setting>
 </otrs_config>
