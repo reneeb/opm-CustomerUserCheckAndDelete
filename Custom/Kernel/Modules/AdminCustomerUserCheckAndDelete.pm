@@ -95,9 +95,11 @@ sub _CustomerUsers {
         Size        => 5,
     );
 
+    my $Limit    = $ConfigObject->Get('CustomerUserCheckAndDelete::Limit') || 1000;
     my %UserList = $CustomerUserObject->CustomerSearch(
         Search => '*',
         Valid  => 0,
+        Limit  => $Limit,
     );
 
     my @UserIDs = keys %UserList;
