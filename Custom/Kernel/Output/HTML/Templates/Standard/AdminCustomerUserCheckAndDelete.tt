@@ -6,9 +6,8 @@
 # did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
 # --
 
-<div class="MainBox ARIARoleMain LayoutFixedSidebar SidebarFirst">
-    <h1>[% Translate("Customer Users - check and delete") | html %]</h1>
-    <div class="SidebarColumn">
+<div class="MainBox ARIARoleMain LayoutFixedSidebar SidebarFirst ActionsSideBar">
+    <div class="SidebarColumn ActionsSideBarComp">
         <div class="WidgetSimple">
             <div class="Header">
                 <h2>[% Translate("Actions") | html %]</h2>
@@ -27,55 +26,92 @@
                 </form>
             </div>
         </div>
+
+        <div class="WidgetSimple">
+            <div class="Header">
+                <h2>[% Translate("Related Actions") | html %]</h2>
+            </div>
+            <div class="Content">
+                <ul class="ActionList">
+                    <li>
+                        <a href='[% Env("Baselink") %]Action=AdminCustomerUser' class='CallForAction btn-main btn-primary-ghost btn-width-md'>
+                            <span>
+                                [% Translate('Customer User') | html %]
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 
     <div class="ContentColumn">
+        <h1 class="InvisibleText">[% Translate("Customer Users - check and delete") | html %]</h1>
+
+       [% BreadcrumbPath = [
+                {
+                    Name => Translate('Customer Users - check and delete'),
+                    Link => Env("Action"),
+                },
+            ]
+        %]
+
+        [% INCLUDE "Breadcrumb.tt" Path = BreadcrumbPath %]
+
+
         <div class="WidgetSimple">
             <div class="Header">
                 <h2>[% Translate("List") | html %]</h2>
             </div>
-            <div class="Content">
+            <div class="Content card">
                 <form action="[% Env("Baselink") %]" method="post">
-                <input type="hidden" name="Action" value="[% Env("Action") | html %]">
-                <input type="hidden" name="Subaction" value="Delete">
-                <table class="DataTable" id="CustomerUsers">
-                    <thead>
-                        <tr>
-                            <th>
-                                <input type="checkbox" id="AllCustomerIDs">
-                                [% Translate("Check/Uncheck all") | html %]
-                            </th>
-                            <th>[% Translate("Name") | html %]</th>
-                            <th>[% Translate("Comment") | html %]</th>
-                            <th>[% Translate("Valid") | html %]</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                    <input type="hidden" name="Action" value="[% Env("Action") | html %]">
+                    <input type="hidden" name="Subaction" value="Delete">
+                    <table class="DataTable" id="CustomerUsers">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" id="AllCustomerIDs">
+                                    [% Translate("Check/Uncheck all") | html %]
+                                </th>
+                                <th>[% Translate("Name") | html %]</th>
+                                <th>[% Translate("Comment") | html %]</th>
+                                <th>[% Translate("Valid") | html %]</th>
+                            </tr>
+                        </thead>
+                        <tbody>
 [% RenderBlockStart("NoUsersFound") %]
-                        <tr>
-                            <td colspan="4">[% Translate("No matches found.") | html %]</td>
-                        </tr>
+                            <tr>
+                                <td colspan="4">[% Translate("No matches found.") | html %]</td>
+                            </tr>
 [% RenderBlockEnd("NoUsersFound") %]
 [% RenderBlockStart("UserRow") %]
-                        <tr>
-                            <td>
-                                <input type="checkbox" value="[% Data.UserLogin | html %]" name="CustomerID" />
-                            </td>
-                            <td>
-                                [% Data.UserLogin | html %] &rarr;
-                                [% Data.UserFullname | html %]
-                            </td>
-                            <td>
-                                [% Data.UserComment | html %]
-                            </td>
-                            <td>
-                                [% Data.Valid | html %]
-                            </td>
-                        </tr>
+                            <tr>
+                                <td style="width: 5px">
+                                    <input type="checkbox" value="[% Data.UserLogin | html %]" name="CustomerID" />
+                                </td>
+                                <td>
+                                    [% Data.UserLogin | html %] &rarr;
+                                    [% Data.UserFullname | html %]
+                                </td>
+                                <td>
+                                    [% Data.UserComment | html %]
+                                </td>
+                                <td>
+                                    [% Translate( Data.Valid ) | html %]
+                                </td>
+                            </tr>
 [% RenderBlockEnd("UserRow") %]
-                    </tbody>
-                </table>
-                <button type="submit" class="CallForAction"><span>[% Translate("Delete Customer Users") | html %]</span></button>
+                        </tbody>
+                    </table>
+
+                    <fieldset class="TableLike">
+                    <div class="field-wrapper form-button-actions">
+                        <div class="Field buttons-field">
+                            <button type="submit" class="CallForAction btn-primary btn-main  btn-width-md"><span>[% Translate("Delete Customer Users") | html %]</span></button>
+                        </div>
+                    </div>
+                    </fieldset>
                 </form>
             </div>
         </div>

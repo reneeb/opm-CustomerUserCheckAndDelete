@@ -72,6 +72,7 @@ sub _CustomerUsers {
     my $ConfigObject       = $Kernel::OM->Get('Kernel::Config');
     my $LayoutObject       = $Kernel::OM->Get('Kernel::Output::HTML::Layout');
     my $CustomerUserObject = $Kernel::OM->Get('Kernel::System::CustomerUser');
+    my $ValidObject        = $Kernel::OM->Get('Kernel::System::Valid');
 
     my %Checks = %{ $ConfigObject->Get('CustomerUserCheckAndDelete::Check') || {} };
 
@@ -90,9 +91,10 @@ sub _CustomerUsers {
     $Param{CheckSelect} = $LayoutObject->BuildSelection(
         Name        => 'Checks',
         Data        => \@CheckSelect,
-        SelectedIDs => $Param{Checks} // [ keys %Checks ],
+        SelectedID  => $Param{Checks} // [ keys %Checks ],
         Multiple    => 1,
         Size        => 5,
+        Class       => 'Modernize',
     );
 
     my $Limit    = $ConfigObject->Get('CustomerUserCheckAndDelete::Limit') || 1000;
@@ -126,10 +128,14 @@ sub _CustomerUsers {
         );
     }
 
+    my %ValidList = $ValidObject->ValidList();
+
     for my $UserID ( sort { $UserList{$a} cmp $UserList{$b} } @UserIDs ) {
         my %User = $CustomerUserObject->CustomerUserDataGet(
             User => $UserID,
         );
+
+	$User{Valid} = $ValidList{ $User{ValidID} };
 
         $LayoutObject->Block(
             Name => 'UserRow',
